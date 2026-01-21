@@ -40,6 +40,7 @@ This project is a retro-themed, static-first landing page for the game "Asteroid
 - **`.github/workflows/deploy.yml`**: 
     - A GitHub Actions workflow that automatically triggers on push to the `main` branch.
     - It installs Node.js, project dependencies (`npm install`), and builds the site (`npm run build`).
+    - **Crucially**, it sets the `NODE_ENV: production` environment variable during the `build` step. This forces Astro to use the production `base` path from the config, ensuring all generated links are correct for the GitHub Pages subdirectory.
     - Finally, it deploys the contents of the `dist/` folder to GitHub Pages.
 - **`.env`**: Manages environment variables, specifically `PUBLIC_PLAY_STORE_URL` to easily update the Play Store link without changing code.
 
@@ -47,13 +48,13 @@ This project is a retro-themed, static-first landing page for the game "Asteroid
 
 ## 3. Last Change Implemented
 
-**Goal**: Fix an issue where setting a `base` path in `astro.config.mjs` for GitHub Pages deployment broke the local development server's routing.
+**Goal**: Create a robust deployment workflow for GitHub Pages that works with a site hosted in a subdirectory, without breaking the local development server.
 
-**Action Taken**:
+**Actions Taken**:
 
-1.  **Modified `astro.config.mjs`**: The `base` property was updated to be conditional based on the environment.
-2.  **Implementation**:
-    ```javascript
-    const base = process.env.NODE_ENV === 'production' ? '/WebSiteAsteroids1979' : '/';
-    ```
-3.  **Outcome**: This change allows the local development server (`npm run dev`) to run at the root (`/`) as expected, while production builds (`npm run build`) correctly use the `/WebSiteAsteroids1979` sub-path for asset and page links on GitHub Pages.
+1.  **Created `.github/workflows/deploy.yml`**: A new GitHub Actions workflow was created to automate the build and deployment process.
+2.  **Configured the Workflow**: The workflow checks out the code, installs all dependencies (`npm install`), and then runs the build command (`npm run build`).
+3.  **Forced Production Environment**: The `env: NODE_ENV: production` key was added to the `build` step. This is the critical piece that guarantees Astro uses the `base: '/WebSiteAsteroids1979'` setting from `astro.config.mjs` during the production build.
+4.  **Verified `astro.config.mjs`**: Ensured the conditional logic for the `base` path was in place to support both local development and the new production workflow.
+
+**Outcome**: The project now has a fully automated, reliable deployment pipeline. The local environment remains easy to use, and the production site will have correctly formed URLs that work within its GitHub Pages subdirectory.
