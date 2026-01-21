@@ -38,6 +38,7 @@ jobs:
       - name: Build
         env:
           NODE_ENV: production
+          PUBLIC_PLAY_STORE_URL: ${{ secrets.PUBLIC_PLAY_STORE_URL }}
         run: npm run build
 
       - name: Setup Pages

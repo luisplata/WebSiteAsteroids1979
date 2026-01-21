@@ -14,7 +14,7 @@ body {
   font-family: 'Press Start 2P', sans-serif;
   margin: 0;
   padding: 0;
-  background: #000 url('/path/to/your/starfield-background.png'); /* Replace with your background */
+  background: #000 url('/starfield-background.png'); /* Corrected path */
   color: #fff;
   text-align: center;
 }
