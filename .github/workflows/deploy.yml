@@ -31,10 +31,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Usa la misma versión que tu entorno de desarrollo
+          node-version: "20"
           cache: 'npm'
       - name: Install dependencies
         run: npm install
+      - name: DEBUG - Check NODE_ENV
+        run: echo "NODE_ENV is set to: $NODE_ENV"
+        env:
+          NODE_ENV: production
       - name: Build
         run: npm run build
         env:
@@ -44,7 +48,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload dist folder
           path: './dist'
 
   # Deployment job
