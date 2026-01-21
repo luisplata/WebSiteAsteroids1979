@@ -38,11 +38,7 @@ jobs:
       - name: Build
         env:
           NODE_ENV: production
-        run: |
-          echo "--- DEBUG INFO ---"
-          echo "NODE_ENV is set to: $NODE_ENV"
-          echo "------------------"
-          npm run build
+        run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

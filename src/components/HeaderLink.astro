@@ -4,12 +4,19 @@ import type { HTMLAttributes } from 'astro/types';
 type Props = HTMLAttributes<'a'>;
 
 const { href, class: className, ...props } = Astro.props;
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
-const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+
+// --- LA CORRECCIÓN ---
+// Construimos manualmente la URL final.
+// Esto garantiza que la ruta base se incluya tanto en desarrollo como en producción.
+// El .replace('//', '/') es un truco para evitar un doble slash en la página de inicio.
+const finalHref = `${import.meta.env.BASE_URL}${href}`.replace('//', '/');
+
+// Una lógica 'isActive' más simple y robusta.
+// Comprueba si la URL actual comienza con la ruta del enlace.
+const isActive = Astro.url.pathname.startsWith(finalHref);
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
+<a href={finalHref} class:list={[className, { active: isActive }]} {...props}>
 	<slot />
 </a>
 <style>
