@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-4">History of Asteroids</h1>
+    <p class="mb-4">
+      Asteroids is a space-themed multidirectional shooter arcade game released in November 1979 by Atari, Inc. Designed by Lyle Rains and Ed Logg, it was a popular and influential game, selling 70,000 arcade cabinets.
+    </p>
+    <p class="mb-4">
+      The game's objective is to shoot and destroy asteroids and saucers while not colliding with either, or being shot by the saucers. The game becomes harder as the number of asteroids increases.
+    </p>
+    <p>
+      Asteroids was conceived during a meeting between Logg and Rains. Logg, inspired by the 1962 Spacewar! game, created a hardware-based game with a unique vector display. The game's physics and controls were a significant part of its appeal.
+    </p>
+  </div>
+</BaseLayout>
